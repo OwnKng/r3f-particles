@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react"
+import Points from "./Points"
+import { Canvas } from "@react-three/fiber"
+import "./styles.css"
+import { NoToneMapping } from "three/src/Three"
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Canvas
+      camera={{ fov: 75, position: [6, 1.2, 6] }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = NoToneMapping
+      }}
+    >
+      <Suspense fallback={null}>
+        <color attach='background' args={["#151B26"]} />
+        <Points />
+      </Suspense>
+    </Canvas>
+  )
 }
-
-export default App;
